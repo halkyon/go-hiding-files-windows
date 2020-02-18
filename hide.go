@@ -14,7 +14,7 @@ func HideFile(path string) (string, error) {
 		return path, nil
 	}
 
-	newPath := filepath.Dir(path) + string(os.PathSeparator) + "." + filename
+	newPath := filepath.Join(filepath.Dir(path), ".", filename)
 	err := os.Rename(path, newPath)
 	if err != nil {
 		return "", err
