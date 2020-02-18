@@ -1,10 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"syscall"
 )
 
 func main() {
@@ -14,14 +14,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer os.Remove(path)
 
-	p, err := syscall.UTF16PtrFromString(path)
+	p, err := HideFile(path)
 	if err != nil {
 		panic(err)
 	}
-	err = syscall.SetFileAttributes(p, syscall.FILE_ATTRIBUTE_HIDDEN)
-	if err != nil {
-		panic(err)
-	}
+
+	os.Remove(p)
+	fmt.Println(p)
 }
